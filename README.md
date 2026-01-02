@@ -36,7 +36,7 @@
 
 핵심은 **Store-and-Forward** 입니다.
 
-1) **STORE (PC)**: PC(Qt)가 256B “명령 패킷”을 Vendor로 전송  
+1) **STORE (PC)**: PC(Qt)가 256Byte “명령 패킷”을 Vendor로 전송  
 2) **STORE (Dongle)**: Black Pill이 받은 패킷을 **SD에 저장**  
 3) **RUN (Robot)**: Black Pill을 로봇(RPi)에 연결하면, 저장된 패킷을 Vendor로 다시 보내고(RPi가 수신), daemon이 실행
 
