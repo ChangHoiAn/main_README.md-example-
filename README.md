@@ -53,12 +53,12 @@ flowchart LR
 
 ## 2가지 모드
 
-### ✅ MAIN: 자동 실행 (Vendor 256B Store-and-Forward)
+### ✅ MAIN: 자동 실행 (Vendor 256Byte Store-and-Forward)
 - PC: `/dev/custom_usb_pc` 로 256Byte 패킷 write
 - Dongle: 수신한 패킷을 SD에 저장
 - Robot: `/dev/custom_usb_rpi` 로 256Byte 패킷 read → daemon이 S/D/C로 파싱/실행
 
-### 🆘 RECOVERY: 네트워크 죽어도 복구 (CDC↔UART Serial Console)
+### 🆘 EMERGENCY: 네트워크 죽어도 복구 (CDC↔UART Serial Console)
 - Black Pill이 **CDC 모드**로 전환
 - PC는 **가상 COM 포트**로 접속
 - CDC 데이터가 UART로 브릿지되어 RPi의 **agetty 시리얼 콘솔**로 연결
