@@ -93,7 +93,7 @@ ls -l /dev/custom_usb*
 ```bash
 cd pc_client_qt
 ./CUSTOM_USB_CLIENT
-# Qt에서 명령 생성 → /dev/custom_usb_pc로 256B 전송
+# Qt에서 명령 생성 → /dev/custom_usb_pc로 256Byte 전송
 ```
 
 ### 4) 로봇에서 실행 (RUN)
@@ -115,7 +115,7 @@ sudo minicom -D /dev/ttyACM0 -b 115200
 
 - **현장 친화적**: 네트워크/SSH가 불안정해도 “동글 + 시리얼”로 복구 가능
 - **단순한 인터페이스**: Qt/daemon은 그냥 `/dev/*` 파일 I/O
-- **고정 프레임(256B)**: 패킷 경계/검증이 쉬워서 디버깅이 편함
+- **고정 프레임(256Byte)**: 패킷 경계/검증이 쉬워서 디버깅이 편함
 - **재현성**: PC에서 적재한 패킷을 그대로 저장/전송하니 데모/테스트가 안정적
 
 ---
