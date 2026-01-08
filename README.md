@@ -3,7 +3,7 @@
 # 👋 안녕하세요! 임베디드 시스템 & IoT 개발자 **안창회**입니다.
 
 **Firmware → Linux(Device/Driver) → Edge/Robot 시스템**까지  
-디바이스가 “실제로 동작하는 경로”를 끝까지 연결하는 개발을 지향합니다.
+임베디드와 Linux 기반 시스템을 연결하는 프로젝트를 진행해왔습니다.
 
 </div>
 
@@ -45,7 +45,7 @@
 
 ### ☕ USB-MACRO — 원클릭 로봇 실행 Smart USB Bridge (Store & Forward + Recovery)
 - **Repo:** https://github.com/won-jong-wan/USB-Macro  
-- **한 줄:** PC에서 명령 패킷 “적재(Store)” → 로봇에 연결 시 “자동 실행(Run)” + 네트워크 장애 시 “시리얼 복구(Recovery)”
+- **한 줄:** PC에서 명령 패킷 “적재(Store)” → 로봇 연결 시 “자동 실행(Run)” + 네트워크 장애 시 “시리얼 복구(Recovery)”
 - **Embedded Point**
   - **256Byte 고정 프레임** 프로토콜로 패킷 경계/검증/디버깅 용이
   - **USB Vendor + SD 저장** 기반 Store-and-Forward로 테스트 재현성 강화
@@ -108,14 +108,19 @@ flowchart LR
 
 ## 🔮 앞으로 할 계획 (Next)
 
-### 🎹 Embedded Synthesizer 프로젝트
-- **목표**
-  - MCU 기반 실시간 오디오 생성(발진기/엔벌로프/필터) + 저지연 출력
-  - 입력(버튼/엔코더/키패드 또는 MIDI) → DSP 처리 → DAC/PWM/I2S 출력까지 전체 경로 구현
+### 🎹 RTOS 기반 신디사이저 (STM32 Black Pill + FreeRTOS)
+- **주제**
+  - **RTOS 스케줄링** 기반으로 오디오 합성/입력/UI/출력을 태스크로 분리하고,
+    **저지연·안정적인 오디오 파이프라인**을 구현하는 임베디드 신디사이저
+- **구성 계획**
+  - Task: **Audio Engine** (Oscillator/Wavetable + ADSR + Mixer)
+  - Task: **I/O** (Encoder/Keypad 또는 MIDI(UART) 입력, 이벤트 큐)
+  - Task: **Output** (I2S DAC 또는 PWM/DAC 출력, 버퍼 관리)
+  - Task: **UI** (OLED 표시, Preset 관리)
 - **예정 기능**
-  - Oscillator(Sine/Saw/Square) + ADSR + 간단한 LPF/Delay
-  - Preset 저장/로드, UI(encoder + OLED 등)
-  - (선택) MIDI 입력(UART/USB) 또는 시리얼 커맨드로 제어
+  - 파형(Sine/Saw/Square) + ADSR + 간단한 LPF/Delay
+  - Preset 저장/로드, 실시간 파라미터 조정
+  - (선택) MIDI 제어(UART) / 시리얼 커맨드 기반 제어
 
 > Repo 링크는 생성 후 여기에 추가 예정
 
@@ -123,7 +128,7 @@ flowchart LR
 
 ## 💡 관심 분야
 
-**Embedded System | Device Driver | USB/Serial | Motor Control | ROS2 | Linux Kernel | Edge AI**
+**Embedded System | RTOS | Device Driver | USB/Serial | Motor Control | ROS2 | Linux Kernel | Edge AI**
 
 ---
 
