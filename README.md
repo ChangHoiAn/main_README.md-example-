@@ -50,7 +50,7 @@
   - **256Byte 고정 프레임** 프로토콜로 패킷 경계/검증/디버깅 용이
   - **USB Vendor + SD 저장** 기반 Store-and-Forward로 테스트 재현성 강화
   - **CDC↔UART Serial Console**로 SSH/네트워크 장애 상황에서도 현장 복구 가능
-  - PC(Qt) / Linux 커널 드라이버(/dev) / RPi daemon까지 “끝단 실행 경로” 연결
+  - PC(Qt) / Linux 커널 드라이버(/dev) / RPi daemon까지 연결
 
 ```mermaid
 flowchart LR
