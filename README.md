@@ -2,7 +2,7 @@
 
 # 👋 안녕하세요! 임베디드 시스템 & IoT 개발자 **안창회**입니다.
 
-**Firmware → Linux(Device/Driver) → Edge/Robot 시스템**까지  
+임베디드 펌웨어부터 **Linux 디바이스/드라이버**, Edge/Robot 시스템까지
 임베디드와 Linux 기반 시스템을 연결하는 프로젝트를 진행해왔습니다.
 
 </div>
@@ -44,7 +44,7 @@
 ## 🚀 Featured Project
 
 ### ☕ USB-MACRO — 원클릭 로봇 실행 Smart USB Bridge (Store & Forward + Recovery)
-- **Repo:** https://github.com/won-jong-wan/USB-Macro  
+- **Repo:** [USB-Macro](https://github.com/won-jong-wan/USB-Macro)
 - **한 줄:** PC에서 명령 패킷 “적재(Store)” → 로봇 연결 시 “자동 실행(Run)” + 네트워크 장애 시 “시리얼 복구(Recovery)”
 - **Embedded Point**
   - **256Byte 고정 프레임** 프로토콜로 패킷 경계/검증/디버깅 용이
@@ -64,7 +64,7 @@ flowchart LR
 ## 🚀 주요 프로젝트
 
 ### 🧷 Linux Device Driver — 모듈 기반 시계 디바이스 드라이버
-- **Repo:** https://github.com/ChangHoiAn/Project-DeviceDriver  
+- **Repo:** [Project-DeviceDriver](https://github.com/ChangHoiAn/Project-DeviceDriver)
 - **Embedded Point**
   - 커널/유저 영역 경계에서 디바이스 제어 흐름 설계 및 구현
   - 기능을 모듈로 분리해 드라이버 구조와 유지보수성 중심으로 정리
@@ -72,7 +72,7 @@ flowchart LR
 ---
 
 ### 🤖 Raspberry Pi5 + Hailo 기반 AI 면접 시스템 (Edge AI)
-- **Repo:** https://github.com/ChangHoiAn/Project-AI-Interview-system  
+- **Repo:** [Project-AI-Interview-system](https://github.com/ChangHoiAn/Project-AI-Interview-system)
 - **내용**
   - Raspberry Pi5 + Hailo 가속기로 정량적 AI 면접 구현
   - 웹캠으로 자세·표정 XML 저장
@@ -82,7 +82,7 @@ flowchart LR
 ---
 
 ### 🔐 IoT 기반 실시간 침입 감지 시스템 (MCU ↔ SBC ↔ DB ↔ 액추에이터)
-- **Repo:** https://github.com/ChangHoiAn/Project-Instruction-Detection-system  
+- **Repo:** [Project-Instruction-Detection-system](https://github.com/ChangHoiAn/Project-Instruction-Detection-system)
 - **내용**
   - STM32 GPIO 인터럽트로 이벤트 감지
   - Wi-Fi로 Raspberry Pi → MySQL 저장
@@ -91,7 +91,7 @@ flowchart LR
 ---
 
 ### ☀️ 태양광 추적 시스템 (센서 + 액추에이터 제어)
-- **Repo:** https://github.com/ChangHoiAn/Project-Solar-Tracking-system  
+- **Repo:** [Project-Solar-Tracking-system](https://github.com/ChangHoiAn/Project-Solar-Tracking-system)
 - **내용**
   - STM32 기반 태양 위치 추적 → 효율적 에너지 수집
   - 서보 모터 제어 및 센서 데이터 처리
@@ -99,7 +99,7 @@ flowchart LR
 ---
 
 ### ⚙️ 모터 제어 및 MATLAB Simulink 시뮬레이션 (센서리스 모터 제어)
-- **Repo:** https://github.com/ChangHoiAn/Project-Motor-Control  
+- **Repo:** [Project-Motor-Control](https://github.com/ChangHoiAn/Project-Motor-Control)
 - **내용**
   - PMSM 모터 속도 제어 Simulink 구성 및 실행
   - C2000(TMS) MCU 기반 속도 제어 구현
