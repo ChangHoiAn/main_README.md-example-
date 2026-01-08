@@ -1,148 +1,140 @@
-# USB-MACRO 🚀
+<div align="center">
 
-**SSH 붙잡고 ROS 환경 세팅하느라 시간 쓰지 말고, USB 하나 꽂고 커피 한 잔 하세요.**  
-**USB-MACRO는 TurtleBot(Raspberry Pi)를 “USB 동글(Black Pill)”로 자동 실행/복구까지 하는 Smart USB Bridge 입니다.**
+# 👋 안녕하세요! 임베디드 시스템 & IoT 개발자 **안창회**입니다.
 
-<center>
-<img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/16ff0826-228a-4b60-b31c-b8ce300529d9" />
+**Firmware → Linux(Device/Driver) → Edge/Robot 시스템**까지  
+디바이스가 “실제로 동작하는 경로”를 끝까지 연결하는 개발을 지향합니다.
 
-
-
----
-
-## 한 문장으로
-
-> **PC에서 “명령 패킷들”만 미리 적재해두고 → 로봇에 꽂으면 → 로봇이 알아서 실행합니다.**  
-> 네트워크/SSH가 죽어도 **CDC↔UART 시리얼 콘솔**로 바로 복구합니다.
+</div>
 
 ---
 
-## Before / After
+## 🧑‍💻 About Me
 
-### Before 😵
-- 로봇 AP/망 붙이기  
-- SSH 접속 → ROS 환경 export  
-- 터미널 여러 개 켜서 bringup / 센서 / 노드 실행  
-- 네트워크 끊기면… 끝 (현장 멘붕)
-
-### After ☕
-- PC에서 버튼 클릭(명령어 적재)
-- **Black Pill을 로봇에 꽂기**
-- (트리거 한 번) **자동 실행**
-- 네트워크가 죽어도 **시리얼 콘솔로 복구**
+- **임베디드 시스템 & IoT 개발자**
+- **관심 키워드:** MCU Firmware · USB/Serial · Linux Driver · ROS2 · Edge AI · System Integration
 
 ---
 
-## 어떻게 돌아가요?
+## 🧩 Embedded Strength
 
-핵심은 **Store-and-Forward** 입니다.
+- **Firmware**: 인터럽트 기반 이벤트 처리, 센서/모터 제어, 프로토콜 프레이밍(고정 프레임/검증)
+- **Linux Interface**: `/dev/*` 기반 I/O 흐름 이해, 커널 드라이버 구조 학습 및 연동
+- **Field-ready 통합**: 네트워크 불안정/현장 환경 고려한 자동 실행 + 복구(Recovery) 설계
 
-1) **STORE (PC)**: PC(Qt)가 256Byte “명령 패킷”을 Vendor로 전송  
-2) **STORE (Dongle)**: Black Pill이 받은 패킷을 **SD에 저장**  
-3) **RUN (Robot)**: Black Pill을 로봇(RPi)에 연결하면, 저장된 패킷을 Vendor로 다시 보내고(RPi가 수신), daemon이 실행
+---
+
+## 🧰 기술 스택
+
+<p align="center">
+  <img src="https://img.shields.io/badge/-STM32-03234B?style=flat&logo=stmicroelectronics&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Linux-FCC624?style=flat&logo=linux&logoColor=black" />
+  <img src="https://img.shields.io/badge/-RaspberryPi-A22846?style=flat&logo=raspberrypi&logoColor=white" />
+  <img src="https://img.shields.io/badge/-ROS2-22314E?style=flat&logo=ros&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Qt-41CD52?style=flat&logo=qt&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Python-3776AB?style=flat&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/-MySQL-4479A1?style=flat&logo=mysql&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Bluetooth-0082FC?style=flat&logo=bluetooth&logoColor=white" />
+  <img src="https://img.shields.io/badge/-WiFi-000000?style=flat&logo=wifi&logoColor=white" />
+  <img src="https://img.shields.io/badge/-HailoAI-FF6F00?style=flat" />
+</p>
+
+---
+
+## 🚀 Featured Project
+
+### ☕ USB-MACRO — 원클릭 로봇 실행 Smart USB Bridge (Store & Forward + Recovery)
+- **Repo:** https://github.com/won-jong-wan/USB-Macro  
+- **한 줄:** PC에서 명령 패킷 “적재(Store)” → 로봇에 연결 시 “자동 실행(Run)” + 네트워크 장애 시 “시리얼 복구(Recovery)”
+- **Embedded Point**
+  - **256Byte 고정 프레임** 프로토콜로 패킷 경계/검증/디버깅 용이
+  - **USB Vendor + SD 저장** 기반 Store-and-Forward로 테스트 재현성 강화
+  - **CDC↔UART Serial Console**로 SSH/네트워크 장애 상황에서도 현장 복구 가능
+  - PC(Qt) / Linux 커널 드라이버(/dev) / RPi daemon까지 “끝단 실행 경로” 연결
 
 ```mermaid
-%%{init: {"themeVariables": {"fontSize": "16px"}, "flowchart": {"useMaxWidth": true, "nodeSpacing": 40, "rankSpacing": 50}}}%%
 flowchart LR
-  PC["PC<br/>Qt + Kernel Driver"] -->|"Vendor 256Byte<br/>STORE"| MCU["Black Pill<br/>Vendor + SD Store"]
-  MCU -->|"Vendor 256Byte<br/>SEND"| RPI["Raspberry Pi<br/>Kernel Driver + daemon"]
-  RPI --> RUN["Execute<br/>ROS2 / system cmd"]
+  PC["PC<br/>Qt Client + /dev/custom_usb_pc"] -->|"Vendor 256B STORE"| MCU["STM32 Black Pill<br/>TinyUSB Vendor + SD Store"]
+  MCU -->|"Vendor 256B SEND"| RPI["Raspberry Pi<br/>/dev/custom_usb_rpi + daemon"]
+  RPI --> RUN["Execute<br/>ROS2 / System Command"]
 ```
 
 ---
 
-## 2가지 모드
+## 🚀 주요 프로젝트
 
-### ✅ MAIN: 자동 실행 (Vendor 256Byte Store-and-Forward)
-- PC: `/dev/custom_usb_pc` 로 256Byte 패킷 write
-- Dongle: 수신한 패킷을 SD에 저장
-- Robot: `/dev/custom_usb_rpi` 로 256Byte 패킷 read → daemon이 S/D/C로 파싱/실행
-
-### 🆘 EMERGENCY: 네트워크 죽어도 복구 (CDC↔UART Serial Console)
-- Black Pill이 **CDC 모드**로 전환
-- PC는 **가상 COM 포트**로 접속
-- CDC 데이터가 UART로 브릿지되어 RPi의 **agetty 시리얼 콘솔**로 연결
-
-```mermaid
-%%{init: {"themeVariables": {"fontSize": "16px"}, "flowchart": {"useMaxWidth": true, "nodeSpacing": 35, "rankSpacing": 45}}}%%
-flowchart LR
-  PC["PC Terminal"] <-->|"USB CDC"| MCU["Black Pill<br/>CDC↔UART Bridge"] <-->|"UART"| RPI["RPi agetty"] --> SHELL["Shell / Recovery"]
-```
+### 🧷 Linux Device Driver — 모듈 기반 시계 디바이스 드라이버
+- **Repo:** https://github.com/ChangHoiAn/Project-DeviceDriver  
+- **Embedded Point**
+  - 커널/유저 영역 경계에서 디바이스 제어 흐름 설계 및 구현
+  - 기능을 모듈로 분리해 드라이버 구조와 유지보수성 중심으로 정리
 
 ---
 
-## Quick Start (요약)
-
-> 아래는 “동작 확인”용 최소 흐름입니다. 레포 환경에 맞게 경로만 조정하세요.
-
-### 1) 펌웨어 업로드
-```bash
-cd firmware
-make
-# ST-Link/DFU 등으로 flash
-```
-
-### 2) 커널 드라이버 로드 (PC / RPi)
-```bash
-cd kernel_driver
-make
-sudo insmod custom_usb.ko
-ls -l /dev/custom_usb*
-```
-
-### 3) PC에서 패킷 적재 (STORE)
-```bash
-cd pc_client_qt
-./CUSTOM_USB_CLIENT
-# Qt에서 명령 생성 → /dev/custom_usb_pc로 256Byte 전송
-```
-
-### 4) 로봇에서 실행 (RUN)
-```bash
-cd rpi_daemon
-python3 main.py
-# 저장된 패킷이 들어오면 daemon이 실행
-```
-
-### 5) Recovery (Serial Console)
-```bash
-# 예: Linux
-sudo minicom -D /dev/ttyACM0 -b 115200
-```
+### 🤖 Raspberry Pi5 + Hailo 기반 AI 면접 시스템 (Edge AI)
+- **Repo:** https://github.com/ChangHoiAn/Project-AI-Interview-system  
+- **내용**
+  - Raspberry Pi5 + Hailo 가속기로 정량적 AI 면접 구현
+  - 웹캠으로 자세·표정 XML 저장
+  - PC 클라이언트가 XML을 받아 LLM(Gemini) 분석 → 면접 점수 제공
+  - 면접 시작/종료 명령 전송, 녹화 및 데이터 처리 자동화
 
 ---
 
-## 이 프로젝트가 “강한” 이유
-
-- **현장 친화적**: 네트워크/SSH가 불안정해도 “동글 + 시리얼”로 복구 가능
-- **단순한 인터페이스**: Qt/daemon은 그냥 `/dev/*` 파일 I/O
-- **고정 프레임(256Byte)**: 패킷 경계/검증이 쉬워서 디버깅이 편함
-- **재현성**: PC에서 적재한 패킷을 그대로 저장/전송하니 데모/테스트가 안정적
-
----
-
-## 레포 구조 (예시)
-
-```text
-USB-MACRO/
-├─ firmware/          # STM32(Black Pill) 펌웨어 (TinyUSB)
-├─ kernel_driver/     # Linux USB vendor char driver (/dev/custom_usb_*)
-├─ pc_client_qt/      # Qt GUI (명령 생성/적재)
-├─ rpi_daemon/        # 명령 파싱/실행 데몬
-└─ docs/              # 상세 설계/프로토콜 문서
-```
+### 🔐 IoT 기반 실시간 침입 감지 시스템 (MCU ↔ SBC ↔ DB ↔ 액추에이터)
+- **Repo:** https://github.com/ChangHoiAn/Project-Instruction-Detection-system  
+- **내용**
+  - STM32 GPIO 인터럽트로 이벤트 감지
+  - Wi-Fi로 Raspberry Pi → MySQL 저장
+  - 침입 시 Bluetooth로 Arduino 제어 → 부저/LED/LCD
 
 ---
 
-## 더 자세한 설명(상세/기술 문서)
-
-메인 README는 “한 번에 이해”가 목표라서 일부 세부를 뺐습니다.  
-**프로토콜/SD 메타(info_struct)/펌웨어 동작 등 깊게 보려면** 아래 문서를 참고하세요.
-
-- `docs/README_TECHNICAL.md` (상세 설계 문서로 이동 추천)
-- 설계 고민 기록: https://github.com/won-jong-wan/USB-Macro/discussions/38
+### ☀️ 태양광 추적 시스템 (센서 + 액추에이터 제어)
+- **Repo:** https://github.com/ChangHoiAn/Project-Solar-Tracking-system  
+- **내용**
+  - STM32 기반 태양 위치 추적 → 효율적 에너지 수집
+  - 서보 모터 제어 및 센서 데이터 처리
 
 ---
 
-## License
-MIT
+### ⚙️ 모터 제어 및 MATLAB Simulink 시뮬레이션 (센서리스 모터 제어)
+- **Repo:** https://github.com/ChangHoiAn/Project-Motor-Control  
+- **내용**
+  - PMSM 모터 속도 제어 Simulink 구성 및 실행
+  - C2000(TMS) MCU 기반 속도 제어 구현
+
+---
+
+## 🔮 앞으로 할 계획 (Next)
+
+### 🎹 Embedded Synthesizer 프로젝트
+- **목표**
+  - MCU 기반 실시간 오디오 생성(발진기/엔벌로프/필터) + 저지연 출력
+  - 입력(버튼/엔코더/키패드 또는 MIDI) → DSP 처리 → DAC/PWM/I2S 출력까지 전체 경로 구현
+- **예정 기능**
+  - Oscillator(Sine/Saw/Square) + ADSR + 간단한 LPF/Delay
+  - Preset 저장/로드, UI(encoder + OLED 등)
+  - (선택) MIDI 입력(UART/USB) 또는 시리얼 커맨드로 제어
+
+> Repo 링크는 생성 후 여기에 추가 예정
+
+---
+
+## 💡 관심 분야
+
+**Embedded System | Device Driver | USB/Serial | Motor Control | ROS2 | Linux Kernel | Edge AI**
+
+---
+
+## 📫 연락처
+- **Email:** changhoian99@gmail.com
+
+---
+
+<div align="center">
+
+## ⭐ GitHub Stats
+[![Metrics](./github-metrics.svg)](https://github.com/lowlighter/metrics)
+
+</div>
